@@ -1,0 +1,40 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/notif-campaign.html">
+
+<dom-module id="employee-list">
+  <template>
+
+    <div> Employee list: </div>
+    <div class="row">
+        <template is="dom-repeat" items="{{campaigns}}">
+            <notif-campaign campaign="{{item}}" campaigns="{{toto}}"></notif-campaign>
+        </template>
+    </div>
+
+  </template>
+
+  <script>
+    Polymer({
+        is: 'employee-list',
+        properties: {
+            toto: {
+                type: Array,
+                value: []
+            }
+        },
+        ready: function() {
+            this.campaigns = [
+                // { 'account': 'coucou', 'name': 'toto' },
+                // { 'account': 'coucou', 'name': 'toto' }
+            ];
+        },
+        addCampaign: function(campaign) {
+            this.push('campaigns', campaign);
+        },
+        getCampaigns: function(){
+            return this.campaigns;
+        }
+    });
+  </script>
+
+</dom-module>

@@ -1,0 +1,85 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/marked-element/marked-element.html">
+<link rel="import" href="/bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="/bower_components/paper-material/paper-material.html">
+
+<dom-module id="my-md">
+  <template>
+    <style>
+      :host paper-material {
+        padding: 10px;
+      }
+    </style>
+    <div class="row">
+        <div class="col-md-6">
+            <paper-textarea label="Input label" value="{{mdContent}}"></paper-textarea>
+        </div>
+        <div class="col-md-6">
+            <paper-material elevation="1">
+                <marked-element markdown="[[mdContentRef]]">
+                    <div class="markdown-html"></div>
+                </marked-element>
+            </paper-material>
+        </div>
+    </div>
+    
+    
+
+  </template>
+
+  <script>
+    var content = `
+# This is a title
+___
+## Title 2
+
+- Element 1
+- Element 2
+
+## Title 3
+
+Small *description* about this **awesome** project!
+### Title 4
+
+1. List 1
+2. List 2
+
+\`\`\`js
+var i = "some code here";
+\`\`\`
+
+\`Markdown\` is _awesome_!
+ coucou
+
+![logo] ![logo] ![logo]
+    `;
+    Polymer({
+        is: 'my-md',
+        properties: {
+            mdContent: {
+                type: String,
+                value: content,
+                observer: '_inputUpdate'
+            },
+            mdReferences: {
+                type: String,
+                value: "[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png \"Logo Title Text 2\""
+            },
+            mdContentRef: {
+                type: String,
+                computed: 'mdContentPlusRef(mdContent, mdReferences)'
+            }
+        },
+        listeners: {
+            'md-updated': '_onInputUpdate'
+        },
+        _inputUpdate: function(){
+            // console.log(this.mdContent);
+        },
+        mdContentPlusRef: function(mdContent, mdReferences){
+            return mdContent + "\n\n" + mdReferences
+        }
+    });
+  </script>
+
+</dom-module>

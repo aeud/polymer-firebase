@@ -1,0 +1,41 @@
+<script>
+    HighlightBehavior = {
+
+      properties: {
+        isHighlighted: {
+          type: Boolean,
+          value: false,
+          notify: true,
+          observer: '_highlightChanged'
+        },
+        campaigns: {
+          type: Array,
+          value: [],
+          notify: true,
+          observer: '_newElement'
+        }
+      },
+
+      listeners: {
+        click: '_toggleHighlight'
+      },
+
+      created: function() {
+        // console.log('Highlighting for ', this, 'enabled!');
+        // console.log(this.campaigns);
+      },
+
+      _toggleHighlight: function() {
+        this.isHighlighted = !this.isHighlighted;
+      },
+
+      _highlightChanged: function(value) {
+        this.toggleClass('highlighted', value);
+      },
+
+      _newElement: function(values){
+        // console.log(values);
+      }
+
+    };
+</script>
