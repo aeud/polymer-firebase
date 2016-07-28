@@ -10,9 +10,10 @@
     <link rel="import" href="/bower_components/paper-button/paper-button.html">
     <link rel="import" href="/bower_components/paper-toast/paper-toast.html">
     <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
-    <link rel="import" href="/employee-list.html">
-    <link rel="import" href="/my-md.html">
-    <link rel="import" href="/my-menu.html">
+    <link rel="import" href="/my-components/campaign-list.html">
+    <link rel="import" href="/my-components/my-md.html">
+    <link rel="import" href="/my-components/my-menu.html">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <style>
         body {
             padding-top: 100px;
@@ -20,14 +21,14 @@
     </style>
 </head>
 <body>
-    <my-menu></my-menu>
+    <my-menu background-color="#58f5d0"></my-menu>
     <div class="container-fluid">
         <paper-button raised onclick="toast0.open()">Default toast</paper-button>
         <paper-toast id="toast0" text="This toast auto-closes after 3 seconds"></paper-toast>
 
         <my-md></my-md>
 
-        <employee-list toto="[1, 2, 3]"></employee-list>
+        <campaign-list></campaign-list>
 
         <paper-dialog id="dialog1" entry-animation="scale-up-animation" exit-animation="fade-out-animation" modal="true" withBackdrop="true">
           <h2>Header</h2>
@@ -57,7 +58,7 @@
     var only1 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     only1.forEach(function(_, i){
         setTimeout(function(){
-            el.addCampaign({ 'account': 'coucou', 'name': 'toto', 'firebase_uid': '' + i });
+            document.querySelector('campaign-list').addCampaign({ 'account': 'coucou', 'name': 'toto', 'firebase_uid': '' + i });
         }, i * 10);
     });
     setInterval(function(){

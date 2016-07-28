@@ -1,0 +1,53 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+
+<dom-module id="my-menu">
+    <template>
+        <style>
+            :host app-header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background: var(--my-toolbar-color);
+                z-index: 10;
+            }
+
+            :host app-drawer {
+                z-index: 11;
+            }
+        </style>
+        <app-header reveals condenses shadow effects="waterfall blend-background parallax-background">
+                <app-toolbar sticky>
+                    <paper-icon-button icon="menu" on-tap="menuAction"></paper-icon-button>
+                    <div>App name</div>
+                    <paper-input></paper-input>
+                </app-toolbar>
+        </app-header>
+        <app-drawer id="nav"><div style="height: 100%; overflow: auto;"></div></app-drawer>
+    </template>
+    <script>
+    Polymer({
+        is: 'my-menu',
+        properties: {
+            'background-color': {
+                type: String,
+                value: '#58f5d0'
+            }
+        },
+        menuAction: function(){
+            this.$.nav.open();
+        },
+        ready: function() {
+            this.customStyle['--my-toolbar-color'] = this['background-color'];
+            this.updateStyles();
+        }
+    });
+    </script>
+</dom-module>
