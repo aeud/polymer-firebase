@@ -1,0 +1,82 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="/bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="/bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="/my-components/campaign-list.html">
+<link rel="import" href="/my-components/my-md.html">
+<link rel="import" href="/bower_components/app-route/app-route.html">
+<link rel="import" href="/bower_components/app-route/app-location.html">
+
+<dom-module id="my-tabs">
+  <template>
+    <app-location route="{{route}}"></app-location>
+    <app-route
+        id="routing"
+        route="{{route}}"
+        pattern="/:page"
+        data="{{data}}"
+        tail="{{tail}}">
+    </app-route>
+    <my-menu background-color="#58f5d0"></my-menu>
+
+    <paper-tabs selected="{{data.page}}" attr-for-selected="index-test">
+        <paper-tab index-test="md">ITEM ONE</paper-tab>
+        <paper-tab index-test="list">ITEM TWO</paper-tab>
+    </paper-tabs>
+
+    <iron-pages selected="[[data.page]]" attr-for-selected="index-test">
+        <my-md index-test="md"></my-md>
+        <campaign-list index-test="list"></campaign-list>
+    </iron-pages>
+
+  </template>
+
+  <script>
+    var urls = ['md', 'list'];
+    var reverseUrl = function(path){
+        return urls.indexOf(path);
+    }
+    Polymer({
+        is: 'my-tabs',
+//        properties: {
+//            tabIndex: {
+//                type: Number,
+//                value: 0,
+//                observer: '_inputUpdate'
+//            },
+//            page: {
+//                type: String,
+//                reflectToAttribute: true
+//            },
+//            routeData: {
+//                type: Object,
+//                reflectToAttribute: true
+//            }
+//        },
+//        observers: [
+//            '_routePageChanged(data)'
+//        ],
+//        _routePageChanged: function(data) {
+//            console.log("_routePageChanged");
+//            console.log(data);
+//            this.routeData = data;
+//            this.tabIndex = reverseUrl(data.page);
+//            console.log(this.tabIndex);
+//        },
+//        _pageChanged: function(page) {
+//            this.importHref(this.resolveUrl('my-' + page + '.html'), null, null, true);
+//        }
+//        _inputUpdate: function(v){
+//            console.log("_inputUpdate");
+//            console.log(v);
+//            console.log(this.routeData);
+//            if (typeof this.routeData != 'undefined') {
+//                this.$.routing.data = urls[v];
+//                this.routeData.page = urls[v];
+//            }
+//        }
+    });
+  </script>
+
+</dom-module>
+

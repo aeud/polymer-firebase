@@ -6,6 +6,9 @@
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../bower_components/paper-input/paper-input-container.html">
+<link rel="import" href="../bower_components/iron-input/iron-input.html">
 
 <dom-module id="my-menu">
     <template>
@@ -15,20 +18,44 @@
                 top: 0;
                 left: 0;
                 width: 100%;
-                background: var(--my-toolbar-color);
                 z-index: 10;
+            }
+
+            :host paper-toolbar {
+                background: var(--my-toolbar-color);
             }
 
             :host app-drawer {
                 z-index: 11;
             }
+            #searchbar {
+                background-color: #546E7A;
+                transition: background-color 400ms cubic-bezier(0, 0, 0.2, 1);
+                width: 100%;
+            }
+            #searchbar paper-input-container {
+                transition: opacity 400ms cubic-bezier(0, 0, 0.2, 1);
+            }
+            #searchbar paper-input-container {
+                padding: 0;
+            }
+            #searchbar paper-input-container input {
+                color: #fff;
+            }
+
+           
         </style>
         <app-header reveals condenses shadow effects="waterfall blend-background parallax-background">
-                <app-toolbar sticky>
-                    <paper-icon-button icon="menu" on-tap="menuAction"></paper-icon-button>
-                    <div>App name</div>
-                    <paper-input></paper-input>
-                </app-toolbar>
+            <paper-toolbar sticky>
+                <paper-icon-button icon="menu" on-tap="menuAction"></paper-icon-button>
+                <span class="title">Title</span>
+                <div id="searchbar">
+                    <paper-input-container no-label-float>
+                        <paper-icon-button prefix="" icon="search" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+                        <input is="iron-input" bind-value="{{searchVal}}" on-keyup="onSearchKeyDown">
+                    </paper-input-container>
+                </div>
+            </paper-toolbar>
         </app-header>
         <app-drawer id="nav"><div style="height: 100%; overflow: auto;"></div></app-drawer>
     </template>
@@ -39,6 +66,9 @@
             'background-color': {
                 type: String,
                 value: '#58f5d0'
+            },
+            'searchVal': {
+                type: String
             }
         },
         menuAction: function(){
@@ -47,6 +77,9 @@
         ready: function() {
             this.customStyle['--my-toolbar-color'] = this['background-color'];
             this.updateStyles();
+        },
+        onSearchKeyDown: function(){
+            console.log(this.searchVal);
         }
     });
     </script>
